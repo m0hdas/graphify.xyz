@@ -10,7 +10,7 @@ let mode = "GRAPH";
 let graph = new Graph();
 
 function preload(){
-  myFont = loadFont('assets/Rodina-Regular.otf');
+  myFont = loadFont('Rodina-Regular.otf');
 }
 
 function setup() {
