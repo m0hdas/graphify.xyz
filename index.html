@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <title> Graphify.xyz </title>
+  <meta name="description" content="interactive graphing playground, where you can upload your own graphs.">
+  <meta name="author" content="Mohamad Alsadhan">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
+  <script src="https://kit.fontawesome.com/6d6b52cb74.js" crossorigin="anonymous"></script>
+
+  <script src="graph.js"></script>
+  <script src="node.js"></script>
+  <script src="edge.js"></script>
+  <script src="data_structs.js"></script>  
+  <script src="graph_detction/gradient.js"></script>
+  <script src="graph_detction/double_threshold.js"></script>
+  <script src="graph_detction/non_max_suppression.js"></script>
+  <script src="graph_detction/hysteresis.js"></script>
+  <script src="graph_detction/hough.js"></script>
+  <script src="graph_detction/edge_finder.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="image/png" href="favicon.PNG">
+  <meta charset="utf-8" />
+
+</head>
+<nav id="nav">
+  
+  <div class="dropdown">
+  
+  <button class="btn" id="runbtn"><i class="fas fa-caret-right fa-fw"></i></button>
+    <div id="rundrpdwn">
+    <div class="dropdown-content">
+      <a onclick="dijkstra()">Dijkstra</a>
+    </div>
+    </div>
+    
+  </div>
+  
+  <div class="dropdown">
+  
+  <button class="btn"><i class="fas fa-cog fa-fw"></i></button>
+  
+    <div class="dropdown-content">
+      <a id="weightsdrp" onclick="weightsDropdown()">Show Weights</a>
+      <a id="edgesdrp" onclick="edgesDropdown()">Directed Edges</a>
+      <a id="labelsdrp" onclick="labelsDropdown()">Numbered Labels</a>
+      <a onclick="document.getElementById('adjmat').style.display = 'block'">Show Adjacency Matrix</a>
+      <a onclick="document.getElementById('adjlist').style.display = 'block'">Show Adjacency List</a>
+    </div>
+    
+  </div>
+  <div class="dropdown">
+  <button class="btn" onclick="reset()" id="trash"><i class="fa fa-trash fa-fw"></i></button>
+    <div class="dropdown-content">
+    </div>
+  </div>
+  
+  
+  <div class="dropdown">
+  <button class="btn"><i class="fa fa-folder fa-fw"></i></button>
+  
+    <div class="dropdown-content">
+      <a onclick="saveGraph()">Save Graph as JSON</a>
+      <a onclick="document.getElementById('uploadJSON').style.display = 'block'">Upload JSON graph</a>
+      <a onclick="document.getElementById('uploadImg').style.display = 'block'">Upload image graph</a>
+    </div>
+    
+  </div>
+  
+  
+  
+  <button class="btn" onclick="document.getElementById('help').style.display = 'block'"><i class="fa fa-info fa-fw"></i></button>
+  
+</nav>
+
+<body>
+  
+  <script src="sketch.js"></script>
+  <div id="spdslidercontainer">
+    <p id="speedtxt"> Speed </p>
+    <input type="range" min="500" max="5000" value="2750" class="speedslider" id="spdslider"  oninput="speedSlider(this)">
+  </div>
+  
+  <div id="adjmat" class="dragscreen">
+    <div id="adjmatheader" class="dragheader">
+      Adjacency Matrix
+    <button onclick="hide(this)"><i class="fas fa-times fa-fw"></i></button>
+    </div>
+    <p id="mattext"></p>
+  </div>
+  
+  <div id="adjlist" class="dragscreen">
+    <div id="adjlistheader" class="dragheader">
+      Adjacency List 
+    <button onclick="hide(this)"><i class="fas fa-times fa-fw"></i></button>
+    </div>
+    <p id="adjtext"></p>
+  </div>
+  
+    <div id="uploadJSON" class="dragscreen">
+    <div id="uploadJSONheader" class="dragheader">
+      Upload JSON Graph
+    <button onclick="hide(this)"><i class="fas fa-times fa-fw"></i></button>
+    </div>
+    <input id="json-file" type="file"/> <br>
+    <button onclick="uploadGraph()"> Upload</button> <br>
+      <p id="uploadtxt"></p>
+  </div>
+    
+  <div id="uploadImg" class="dragscreen">
+    <div id="uploadImgheader" class="dragheader">
+      Upload Image Graph
+    <button onclick="hide(this)"><i class="fas fa-times fa-fw"></i></button>
+    </div>
+    <br>
+    <input type="file" accept="image/*" onchange="openFile(event)"><br><br>
+    <img id="output" style="height:150px; width:200px;">
+    <p id="uploadimgtxt"></p>
+    <div id="uploadcontrols">
+      Radius Range <input id="radiusslider" type="range" min="5" max="50" value="15" onchange="document.getElementById('radiustxt').innerHTML = this.value + '-' + (int(this.value) + 10)"> &nbsp; <a id="radiustxt">15-25</a> <br>
+      increase if the circles take up a bigger proportion of the image.<br>
+      Threshold <input id="thresholdslider" type="range" min="10" max="100" value="40" onchange="document.getElementById('thresholdtxt').innerHTML = this.value"> &nbsp; <a id="thresholdtxt">40</a> <br> 
+      increase if the image has clearer circles and minimal noise.<br>
+      Steps<input id="stepsslider" type="range" min="25" max="150" value="50" onchange="document.getElementById('stepstxt').innerHTML = this.value"> &nbsp; <a id="stepstxt">50</a> <br>
+      increase for more thorough circle detection.<br>
+      However it will increase run time <br> <br>
+      <button onclick="detectGraph()">Draw Graph!</button>
+    </div>
+  </div>
+  <div id="help"  class="dragscreen">
+  
+    <div id="helpheader" class="dragheader">
+      Help!
+    <button onclick="hide(this)"><i class="fas fa-times fa-fw"></i></button>
+    </div>
+    <p>
+      Add nodes by clicking anywhere
+      <br>
+      <br>
+      Click on one node 
+      <br>
+      then click on another node to create an edge between them.
+      <br>
+      <br>
+      Feel free to play with the settings and test all the features.
+      <br> 
+      <br>
+      Happy Graphing!
+    </p>
+  </div>
+  
+<script src="dragscreen.js"></script>
+</body>
+<footer>
+
+</footer>
+</html>

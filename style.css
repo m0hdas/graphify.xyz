@@ -1,0 +1,196 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: rgb(220, 220, 220);
+  overflow: hidden;
+}
+
+canvas {
+  display: inline-block;
+}
+
+nav{
+  width: 100%;
+  min-width: 650px;
+  background: Black;
+  overflow: hidden;
+}
+
+@font-face {
+  font-family: Rodina;
+  src: url(Rodina-Regular.otf);
+}
+
+
+.btn {
+  display: inline-block;
+  background-color: Black; /* Black background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 2vh; /* Some padding */
+  box-sizing: border-box;
+  font-size: 2em; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: Gray;
+}
+
+::selection {
+    color: none;
+    background: none;
+}
+/* For Mozilla Firefox */
+::-moz-selection {
+    color: none;
+    background: none;
+}
+
+/* Links inside the navbar */
+nav a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* The dropdown container */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  font-family: Rodina;
+  cursor: default;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dragscreen {
+  position: absolute;
+  display: none;
+  z-index: 9999;
+  background-color: #f1f1f1;
+  border: 1px solid rgb(220, 220, 220);
+  overflow: hidden;
+  font-family: Rodina;
+  text-align: center;
+  height: auto;
+}
+
+.dragheader {
+  padding: 10px;
+  width: 100%;
+  min-width: 175px;
+  cursor: move;
+  z-index: 10;
+  background-color: Black;
+  font-family: Rodina;
+  color: #fff;
+}
+
+.dragheader button{
+  background-color: Black;
+  color: White;
+  height: 100%;
+  padding-right: 20px;
+  border: none;
+  float: right;
+}
+
+.dragheader button:hover{
+  color: Red;
+}
+
+#spdslidercontainer{
+  display: none;
+}
+
+ #speedtxt{
+  position: absolute;
+  text-align: center;
+  font-family: Rodina;
+  font-size: 1.8em;
+  left: 50%;
+  top: 83.5%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/* The slider itself */
+.speedslider {
+  position: absolute;
+  border: solid;
+  margin: 0 auto;
+  top: 90vh;
+  left: 7.5vw;
+  float: top;
+  z-index: 999;
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 85vw; /* Full-width */
+  height: 25px; /* Specified height */
+  background: White; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.speedslider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.speedslider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: Black; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: Black; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+#uploadcontrols{
+  display:none;
+}
