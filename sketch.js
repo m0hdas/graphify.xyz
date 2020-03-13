@@ -9,16 +9,13 @@ let mode = "GRAPH";
 // environment objects
 let graph = new Graph();
 
-function preload(){
-  myFont = loadFont('Rodina-Regular.otf');
-}
-
 function setup() {
   //draw ellipses/circles from center
   ellipseMode(CENTER);
   
-  canvas = createCanvas(windowWidth, 0.91 * windowHeight);
+  myFont = loadFont('Rodina-Regular.otf');
   
+  canvas = createCanvas(windowWidth, 0.91 * windowHeight);
   
   canvas.mousePressed(canvasPressed);
   canvas.mouseReleased(canvasReleased);
@@ -171,7 +168,7 @@ function updateTables(){
   document.getElementById("adjtext").innerHTML = graph.adjList.html();
 }
 
-//trashcan button deletes everything on the screen
+
 function reset() {
   if (mode == "GRAPH") {
     mode = "DELETE";
@@ -235,7 +232,7 @@ function labelsDropdown() {
 }
 
 function saveGraph(){
-  let obj = {nodes:graph.nodes, edges:graph.edges};
+  let obj = graph.getSaveObj();
   let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
   let downloadAnchorNode = document.createElement('a');
   downloadAnchorNode.setAttribute("href", dataStr);
@@ -243,6 +240,7 @@ function saveGraph(){
   document.body.appendChild(downloadAnchorNode); // required for firefox
   downloadAnchorNode.click();
   downloadAnchorNode.remove();
+  draw();
 }
 
 async function uploadGraph(){
