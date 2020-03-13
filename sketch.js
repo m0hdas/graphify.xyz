@@ -289,8 +289,6 @@ function detectGraph(){
   
   let h = hough(img);
   
-  image(imgFromArr(drawCircles(img, h)), 200, 200)
-  
   if(h.length > 0){
     graph.reset();
     
