@@ -215,40 +215,43 @@ class Graph {
         if (pq.isIn(n)) {
           //draw coloured node if still in queue
           //yet to be completely discovered
-          n.algoCol = 50;
+          n.algoCol = 75;
+          draw();
+
+          let edge = this.getEdge(minNode.value, n);
+          edge.algoCol = 200;
+          let otherEdge;
+          if (this.mat.mat[edge.from.idx][edge.to.idx] == this.mat.mat[edge.to.idx][edge.from.idx]) {
+            otherEdge = this.getEdge(n, minNode.value);
+            otherEdge.algoText = "";
+            otherEdge.algoCol = 200;
+          }
+
+
+          let alt = dist[minNode.value.idx] + this.mat.mat[minNode.value.idx][n.idx];
+
+          edge.algoText = alt + " < " + dist[n.idx];
+          if (alt < dist[n.idx]) {
+
+            dist[n.idx] = alt;
+            prev[n.idx] = minNode.value;
+            pq.changePriority(n, alt);
+            let p = this.numLabels ? minNode.value.idx : String.fromCharCode(minNode.value.idx + 65);
+            n.algoText = alt + ", " + p;
+            edge.algoTCol = color(10, 200, 10);
+          } else {
+            edge.algoTCol = color(200, 10, 10);
+          }
+
+          draw();
+          await delay(this.algoSpeed);
+
+          edge.algoCol = 0;
+          if (otherEdge) {
+            otherEdge.algoCol = 0;
+          }
+
         }
-
-        let edge = this.getEdge(minNode.value, n);
-        edge.algoCol = 200;
-        let otherEdge;
-        if (this.mat.mat[edge.from.idx][edge.to.idx] == this.mat.mat[edge.to.idx][edge.from.idx]) {
-          otherEdge = this.getEdge(n, minNode.value);
-          otherEdge.algoText = "";
-          otherEdge.algoCol = 200;
-        }
-
-
-        let alt = dist[minNode.value.idx] + this.mat.mat[minNode.value.idx][n.idx];
-
-        edge.algoText = alt + " < " + dist[n.idx];
-        if (alt < dist[n.idx]) {
-
-          dist[n.idx] = alt;
-          prev[n.idx] = minNode.value;
-          pq.changePriority(n, alt);
-          let p = this.numLabels ? minNode.value.idx : String.fromCharCode(minNode.value.idx + 65);
-          n.algoText = alt + ", " + p;
-          edge.algoTCol = color(10, 200, 10);
-        } else {
-          edge.algoTCol = color(200, 10, 10);
-        }
-
-        draw();
-        await delay(this.algoSpeed);
-
-        edge.algoCol = 0;
-        otherEdge.algoCol = 0;
-
       }
 
       minNode.value.algoCol = 185;
@@ -271,7 +274,9 @@ class Graph {
         return 0;
       }
       this.getEdge(previousNode, currentNode).algoCol = color(30, 30, 200);
-      this.getEdge(currentNode, previousNode).algoCol = color(30, 30, 200);
+      if (this.getEdge(currentNode, previousNode)) {
+        this.getEdge(currentNode, previousNode).algoCol = color(30, 30, 200);
+      }
       currentNode = previousNode;
     }
 
