@@ -139,40 +139,55 @@ class Graph {
 
   }
 
-  static drawEdge(x1, y1, x2, y2, col) {
-    push();
+  getSaveObj() {
+    let obj = {
+      nodes: this.nodes,
+      edges: this.edges,
+      isDirectional: this.isDirectional,
+      showWeights: this.showWeights,
+      numLabels: this.numLabels
+    };
 
-    fill(col);
-    stroke(col);
-    strokeWeight(6);
-    line(x1, y1, x2, y2);
-
-    pop();
-
+    return obj;
   }
 
   uploadGraph(newGraph) {
 
     try {
+      //if one of the doesn't exist it should return error at some point
       let newNodes = newGraph.nodes;
       let newEdges = newGraph.edges;
+      let isDirectional = newGraph.isDirectional;
+      let showWeights = newGraph.showWeights;
+      let numLabels = newGraph.numLabels;
+      //clear canvas
+      this.reset();
+      this.draw();
+      
+      //copy properties accross
+      this.isDirectional = isDirectional;
+      this.showWeights = showWeights;
+      this.numLabels = numLabels;
+  
+      //draw nodes
+      for (let n of newGraph.nodes) {
+        this.addNode(n.x, n.y);
+      }
+
+      //draw edges
+      for (let e of newGraph.edges) {
+        this.addEdge(this.nodes[e.from.idx], this.nodes[e.to.idx], e.w);
+      }
+      
+      //tell user its fine
+      document.getElementById("uploadtxt").style.color = "Green";
+      document.getElementById("uploadtxt").innerHTML = "Graph uploaded!";
+      this.draw();
     } catch (err) {
       document.getElementById("uploadtxt").style.color = "Red";
       document.getElementById("uploadtxt").innerHTML = "Wrong File Format!";
       return 0;
     }
-    graph.reset();
-    for (let n of newGraph.nodes) {
-      this.addNode(n.x, n.y);
-    }
-
-
-    for (let e of newGraph.edges) {
-      this.addEdge(this.nodes[e.from.idx], this.nodes[e.to.idx], e.w);
-    }
-    document.getElementById("uploadtxt").style.color = "Green";
-    document.getElementById("uploadtxt").innerHTML = "Graph uploaded!";
-    graph.draw();
 
   }
 
@@ -200,7 +215,7 @@ class Graph {
       pq.enqueue(n, dist[n.idx]);
 
     }
-    graph.draw();
+    this.draw();
     await delay(500);
 
     while (!pq.isEmpty()) {
@@ -293,7 +308,7 @@ class Graph {
     this.edges.forEach(e => e.resetAlgoState());
     this.nodes.forEach(n => n.resetAlgoState());
 
-    graph.draw();
+    this.draw();
   }
 
   reset() {
