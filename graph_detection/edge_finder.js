@@ -101,7 +101,7 @@ function withinCircle(x, y, sx, sy, ex, ey, circs){
       continue
     }
       
-    if( (c[1] - ex) ** 2 + (c[2] - ey) ** 2 < (c[0] + 10) ** 2){
+    if( (c[1] - x) ** 2 + (c[2] - y) ** 2 < (c[0] + 10) ** 2){
       return true;
     }
   }
