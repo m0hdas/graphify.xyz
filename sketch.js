@@ -299,7 +299,7 @@ function detectGraph(){
       graph.addEdge(graph.nodes[e[0]], graph.nodes[e[1]], 1);
     }
     
-    graph.draw();
+    draw();
     document.getElementById("uploadimgtxt").innerHTML = "Done! " + h.length + " nodes found." ;
   }else{
    //error message
