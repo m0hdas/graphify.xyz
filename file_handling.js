@@ -80,6 +80,10 @@ function readImage(){
 
 function detectGraph(){
   
+  if(mode[0] == "D"){
+    dijkstra(); //exit running
+  }
+  
   let img = readImage();
 
   //blurring and gray scaling
