@@ -53,7 +53,6 @@ function dragElement(elmnt) {
 function hide(e) {
   e.parentNode.parentNode.style.display = 'none';
 }
-
 var openFile = function(file) {
   var input = file.target;
 
