@@ -26,10 +26,12 @@ function setup() {
 }
 
 function draw() {
+  
   background(220);
-
+  graph.draw();
+  
   if (mode == "GRAPH" || mode == "DELETE") {
-    graph.draw();
+    
     
     if (clickedNode && !mouseHeld) {
       push();
@@ -45,23 +47,24 @@ function draw() {
       pop();
     }
   } else if(mode == "D-START"){
-    graph.draw();
+    
     push();
     textSize(35);
     textAlign(CENTER);
     textFont(myFont);
     text("Pick Starting Node", windowWidth/2, 35);
     pop();
+  
   }else if(mode == "D-RUN"){
-    graph.draw();
+    
     push();
     textSize(35);
     textAlign(CENTER);
     textFont(myFont);
     text("Running...", windowWidth/2, 35);
     pop();
+  
   }else if(mode == "D-FIN"){
-    graph.draw();
     push();
     textSize(35);
     textAlign(CENTER);
