@@ -69,28 +69,7 @@ var openFile = function(file) {
   }catch(err){}
 };
 
-
-function readImage(){
-  //create invisible canvas
-  var canvas = document.createElement('canvas');
-  var context = canvas.getContext('2d');
-  var img = document.getElementById('output');
-  
-  canvas.width = img.naturalWidth;
-  canvas.height = img.naturalHeight;
-
-  context.drawImage(img, 0, 0);
-  var imgData = context.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
-  
-  let uploadedImg = createImage(img.naturalWidth, img.naturalHeight);
-  
-  uploadedImg.loadPixels();
-  //copy the pixels
-  for(let i = 0; i < uploadedImg.pixels.length; i++){
-    uploadedImg.pixels[i] = imgData.data[i];
-  }
-  
-  uploadedImg.updatePixels();
-  
-  return uploadedImg;
+function updateTables(){
+  document.getElementById("mattext").innerHTML = graph.mat.html();
+  document.getElementById("adjtext").innerHTML = graph.adjList.html();
 }
