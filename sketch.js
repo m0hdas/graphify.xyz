@@ -266,6 +266,49 @@ async function uploadGraph(){
   
 }
 
+function openFile(file) {
+  var input = file.target;
+
+  var reader = new FileReader();
+  reader.onload = function() {
+    var dataURL = reader.result;
+    var output = document.getElementById('output');
+
+    output.src = dataURL;
+  };
+  try{
+    reader.readAsDataURL(input.files[0]);
+    document.getElementById("uploadimgtxt").innerHTML = "";
+    document.getElementById('uploadcontrols').style.display = "block";
+  }catch(err){}
+};
+
+
+function readImage(){
+  //create invisible canvas
+  let canvas = document.createElement('canvas');
+  let context = canvas.getContext('2d');
+  let img = document.getElementById('output');
+  
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+
+  context.drawImage(img, 0, 0);
+  let imgData = context.getImageData(0, 0, img.naturalWidth, img.naturalHeight);
+  
+  let uploadedImg = createImage(img.naturalWidth, img.naturalHeight);
+  
+  uploadedImg.loadPixels();
+  //copy the pixels
+  for(let i = 0; i < uploadedImg.pixels.length; i++){
+    uploadedImg.pixels[i] = imgData.data[i];
+  }
+  
+  uploadedImg.updatePixels();
+  
+  return uploadedImg;
+}
+
 function detectGraph(){
   
   let img = readImage();
