@@ -284,22 +284,25 @@ function detectGraph(){
   img = threshold(img);
   img = hysteresis(img);
   
-  
+  //images detected by hough transform
   let h = hough(img);
   
   if(h.length > 0){
     graph.reset();
     
+    //add the nodes found
     for(let c of h){
       graph.addNode(c[1] + 0.25 * windowWidth, c[2] + 0.25 * windowHeight);
-      //find edges
     }
     
+    //detect connections for all edge
     for(let e of edgeFinder(img, h)){
       graph.addEdge(graph.nodes[e[0]], graph.nodes[e[1]], 1);
     }
     
+    //show the user the graph found
     draw();
+    //tell user edges detected
     document.getElementById("uploadimgtxt").innerHTML = "Done! " + h.length + " nodes found." ;
   }else{
    //error message
