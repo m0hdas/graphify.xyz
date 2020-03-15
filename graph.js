@@ -280,21 +280,28 @@ class Graph {
   }
 
   backtrace(target) {
+    //initialises before recursion
     let currentNode = target;
     this.dMinDist = this.dDist[target.idx];
     this.edges.forEach(e => e.resetAlgoState());
-    while (currentNode != this.algoSrc) {
-      let previousNode = this.dPrev[currentNode.idx];
-      if (!previousNode) { //returns false if node doesnt exist
-        return 0;
-      }
-      this.getEdge(previousNode, currentNode).algoCol = color(30, 30, 200);
-      if (this.getEdge(currentNode, previousNode)) {
-        this.getEdge(currentNode, previousNode).algoCol = color(30, 30, 200);
-      }
-      currentNode = previousNode;
-    }
+    this.trace(currentNode);
+  }
 
+  trace(currentNode) {
+    //traverses linked list
+    if (currentNode == this.algoSrc) {
+      return 0; //base case -- exits recursion
+    }
+    let previousNode = this.dPrev[currentNode.idx];
+    if (!previousNode) { //returns false if node doesnt exist
+      return 0; // exits if there is no way to get to that node
+    }
+    this.getEdge(previousNode, currentNode).algoCol = color(30, 30, 200);
+    
+    if (this.getEdge(currentNode, previousNode)) { //if it exists in the first place
+      this.getEdge(currentNode, previousNode).algoCol = color(30, 30, 200);
+    }
+    this.trace(previousNode);
   }
 
   resetAlgoState() {
