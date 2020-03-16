@@ -2,7 +2,9 @@ function threshold(arr) {
   let mx = max(arr.map(x => max(x)));
 
   let highThresh = 0.22 * mx;
-  let lowThresh = highThresh * 0.85;
+  let lowThresh = highThresh * 0.85; 
+  //these constants are arbitatrly set but
+  //these numbers work fine
 
   const STRONG = 255;
   const WEAK = 32;
