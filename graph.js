@@ -160,15 +160,24 @@ class Graph {
       let isDirectional = newGraph.isDirectional;
       let showWeights = newGraph.showWeights;
       let numLabels = newGraph.numLabels;
+      
+      if(!(newNodes && newEdges)){ //if undefined
+        document.getElementById("uploadtxt").style.color = "Red";
+        document.getElementById("uploadtxt").innerHTML = "Wrong File Format!";
+        return 0;
+      }
+      
       //clear canvas
       this.reset();
       this.draw();
       
       //copy properties accross
-      this.isDirectional = isDirectional;
       this.showWeights = showWeights;
       this.numLabels = numLabels;
-  
+      
+      //set to directional so it works both ways
+      this.isDirectional = false;
+      
       //draw nodes
       for (let n of newGraph.nodes) {
         this.addNode(n.x, n.y);
@@ -179,11 +188,17 @@ class Graph {
         this.addEdge(this.nodes[e.from.idx], this.nodes[e.to.idx], e.w);
       }
       
+      //reset isDirectional afterwards
+      this.isDirectional = isDirectional;
+      edgesDropdown(); //makes sure dropdown button
+      edgesDropdown(); // is in the right place by toggling it off and on
+      
       //tell user its fine
       document.getElementById("uploadtxt").style.color = "Green";
       document.getElementById("uploadtxt").innerHTML = "Graph uploaded!";
       this.draw();
     } catch (err) {
+      //something went wrong
       document.getElementById("uploadtxt").style.color = "Red";
       document.getElementById("uploadtxt").innerHTML = "Wrong File Format!";
       return 0;
@@ -203,7 +218,7 @@ class Graph {
     //priority queue implementation
     let pq = new PriorityQueue();
 
-
+    //initialising everything 
     for (let n of this.nodes) {
       if (n != src) {
         dist[n.idx] = Infinity; // Unkown distance from e.
