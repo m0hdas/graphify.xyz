@@ -32,7 +32,7 @@ async function uploadGraph(){
   
   var text = await file.text();
   graph.uploadGraph(JSON.parse(text));
-  
+  draw();
 }
 
 function openFile(file) {
