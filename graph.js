@@ -176,7 +176,7 @@ class Graph {
       this.numLabels = numLabels;
       
       //set to directional so it works both ways
-      this.isDirectional = false;
+      this.isDirectional = true;
       
       //draw nodes
       for (let n of newGraph.nodes) {
