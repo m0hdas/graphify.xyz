@@ -8,7 +8,8 @@
     <meta name="author" content="Mohamad Alsadhan">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
     <script src="https://kit.fontawesome.com/6d6b52cb74.js" crossorigin="anonymous"></script>
-
+    
+    <!-- Load the files -->
     <script src="graph.js"></script>
     <script src="node.js"></script>
     <script src="edge.js"></script>
@@ -27,7 +28,7 @@
 
 </head>
 <nav id="nav">
-
+    <!-- run dropdown menu -->  
     <div class="dropdown">
 
         <button class="btn" id="runbtn"><i class="fas fa-caret-right fa-fw"></i></button>
@@ -38,7 +39,8 @@
         </div>
 
     </div>
-
+    
+    <!-- Settings dropdown menu -->
     <div class="dropdown">
 
         <button class="btn"><i class="fas fa-cog fa-fw"></i></button>
@@ -50,14 +52,17 @@
             <a onclick="document.getElementById('adjmat').style.display = 'block'">Show Adjacency Matrix</a>
             <a onclick="document.getElementById('adjlist').style.display = 'block'">Show Adjacency List</a>
         </div>
-
+    
     </div>
+  
+    <!-- Delete button -->
     <div class="dropdown">
         <button class="btn" onclick="reset()" id="trash"><i class="fa fa-trash fa-fw"></i></button>
         <div class="dropdown-content">
         </div>
     </div>
-
+    
+    <!-- I\O dropdown menu -->
     <div class="dropdown">
         <button class="btn"><i class="fa fa-folder fa-fw"></i></button>
 
@@ -76,11 +81,14 @@
 <body>
 
     <script src="sketch.js"></script>
+  
+    <!-- algorithim speed slider, set display to block when algorithm is running -->
     <div id="spdslidercontainer">
         <p id="speedtxt"> Speed </p>
         <input type="range" min="500" max="5000" value="2750" class="speedslider" id="spdslider" oninput="speedSlider(this)">
     </div>
-
+    
+    <!-- adjacency list window display set to none as default-->
     <div id="adjmat" class="dragscreen">
         <div id="adjmatheader" class="dragheader">
             Adjacency Matrix
@@ -96,7 +104,8 @@
         </div>
         <p id="adjtext"></p>
     </div>
-
+    
+     <!-- upload JSON window display set to none as default-->
     <div id="uploadJSON" class="dragscreen">
         <div id="uploadJSONheader" class="dragheader">
             Upload JSON Graph
@@ -108,7 +117,8 @@
         <br>
         <p id="uploadtxt"></p>
     </div>
-
+  
+     <!-- upload image window display set to none as default-->
     <div id="uploadImg" class="dragscreen">
         <div id="uploadImgheader" class="dragheader">
             Upload Image Graph
@@ -136,6 +146,8 @@
             <button onclick="detectGraph()">Draw Graph!</button>
         </div>
     </div>
+    
+     <!-- help window display set to none as default-->
     <div id="help" class="dragscreen">
 
         <div id="helpheader" class="dragheader">
