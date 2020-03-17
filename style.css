@@ -157,7 +157,7 @@ nav a {
   top: 90vh;
   left: 7.5vw;
   float: top;
-  z-index: 999;
+  z-index: 999; /* always on top */
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
   width: 85vw; /* Full-width */
