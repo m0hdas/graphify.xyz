@@ -87,8 +87,7 @@ function detectGraph(){
   let img = readImage();
 
   //blurring and gray scaling
-  let mult = 200/img.width;
-  img.resize(floor(mult * img.width), floor(mult * img.height)); //keep aspect ratio
+  img.resize(250, 250);
   img.filter(GRAY);
   img.filter(BLUR, 1);
 
