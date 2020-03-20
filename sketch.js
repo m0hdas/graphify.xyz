@@ -23,10 +23,6 @@ function setup() {
   canvas.mousePressed(canvasPressed);
   canvas.mouseReleased(canvasReleased);
   canvas.mouseMoved(canvasMoved);
-  //for mobile use
-  canvas.touchStarted(canvasPressed);
-  canvas.touchEnded(canvasReleased);
-  canvas.touchMoved(canvasMoved);
   
   textSize(32);
   noLoop();
