@@ -9,6 +9,8 @@ let mode = "GRAPH";
 // environment objects
 let graph = new Graph();
 
+
+//p5.js built-in func.
 function setup() {
   //draw ellipses/circles from center
   ellipseMode(CENTER);
@@ -17,14 +19,21 @@ function setup() {
   
   canvas = createCanvas(windowWidth, 0.91 * windowHeight);
   
+  //attaching mouse event listeners to the canvas
   canvas.mousePressed(canvasPressed);
   canvas.mouseReleased(canvasReleased);
   canvas.mouseMoved(canvasMoved);
+  //for mobile use
+  canvas.touchStarted(canvasPressed);
+  canvas.touchEnded(canvasReleased);
+  canvas.touchMoved(canvasMoved);
+  
   textSize(32);
   noLoop();
   
 }
 
+//p5.js built-in func.
 function draw() {
   
   background(220);
