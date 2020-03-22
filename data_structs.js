@@ -82,7 +82,12 @@ class AdjList {
   
   removeEdge(edge){
 
-    this.adj[edge.from.idx].splice(this.adj[edge.from.idx].indexOf([edge.to, edge.w]), 1);
+    for(let i = 0; i < this.adj[edge.from.idx].length; i++){
+      if(this.adj[edge.from.idx][i][0].idx == edge.to.idx){
+        this.adj[edge.from.idx].splice(i, 1)
+        return true;
+      }
+    }
 
   }
   
