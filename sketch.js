@@ -230,6 +230,7 @@ function edgesDropdown(){
 function labelsDropdown() {
   graph.numLabels = !graph.numLabels;
   document.getElementById("labelsdrp").innerText = (graph.numLabels ? "Lettered" : "Numbered") + " Labels";
+  updateTables();
   draw();
 }
 
