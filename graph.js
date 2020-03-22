@@ -238,9 +238,15 @@ class Graph {
         this.resetAlgoState();
         return 0;
       }
-
+      
       let minNode = pq.dequeue();
       minNode.value.algoCol = 100;
+      
+      if(minNode.priority == Infinity){
+        //no need to explore if we cannot even get there
+        continue;
+      }
+      
       for (let n of this.neighbours(minNode.value)) {
         if (pq.isIn(n)) {
           //draw coloured node if still in queue
