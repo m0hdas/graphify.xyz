@@ -244,6 +244,7 @@ class Graph {
       
       if(minNode.priority == Infinity){
         //no need to explore if we cannot even get there
+        minNode.value.algoCol = 185;
         continue;
       }
       
