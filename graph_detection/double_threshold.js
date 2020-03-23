@@ -1,4 +1,5 @@
 function threshold(arr) {
+  //maximum pixel
   let mx = max(arr.map(x => max(x)));
 
   let highThresh = 0.22 * mx;
