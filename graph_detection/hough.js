@@ -9,7 +9,8 @@ function hough(arr) {
     a: ~~(r * Math.cos(0)),
     b: ~~(r * Math.sin(0))
   }];
-
+  
+  //splitting up the grid into "buckets"
   for (let r = MIN; r <= MAX; r++) {
     for (let t = 0; t < STEPS; t++) {
       let theta = (2 * PI * t) / STEPS;
@@ -22,7 +23,8 @@ function hough(arr) {
       }
     }
   }
-
+  
+  //initilaise 3D accumulator with zeros
   let acc = Array.from(Array(arr.length), () => Array.from(Array(arr[0].length), () => Array(points.length).fill(0)));
 
   for (let x = 0; x < arr.length; x++) {
@@ -46,6 +48,7 @@ function hough(arr) {
 
         if (v / STEPS > THRESH) {
           if (circles.every((c) => ((a - c[1]) ** 2 + (b - c[2]) ** 2 > c[0] ** 2))) {
+            //check circle is not within any circle
             circles.push([r, a, b]);
           }
         }
