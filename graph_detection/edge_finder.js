@@ -1,22 +1,32 @@
 function edgeFinder(imgArr, circs) {
+  //get image with circles drawn
   let arr = drawCircles(imgArr, circs);
+  
   let edges = [];
+  
   for (let i = 0; i < circs.length; i++) {
     for (let j = 0; j < circs.length; j++) {
       if (i < j) {
+        
+        //true if a path exists
         let connected = astar(circs[i][1], circs[i][2], circs[j][1], circs[j][2], circs[j][0], arr , circs);
+        
         if (connected) {
           edges.push([i, j]);
         }
+      
       }
     }
   }
   
   return edges;
+
 }
+
 
 function drawCircles(arr, circs) {
   //color circles
+  //all pixels inside circle turn white
   for (let x = 0; x < arr.length; x++) {
     for (let y = 0; y < arr[0].length; y++) {
       for (let c of circs) {
@@ -95,9 +105,11 @@ function withinCircle(x, y, sx, sy, ex, ey, circs){
 
   for(let c of circs){
     if(c[1] == ex && c[2] == ey){
+      //make sure circle is not end 
       continue
     }
     if(c[1] == sx && c[2] == sy){
+      //make sure circle is not start 
       continue
     }
       
