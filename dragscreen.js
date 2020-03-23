@@ -55,12 +55,13 @@ function hide(e) {
 }
 var openFile = function(file) {
   var input = file.target;
-
+  
   var reader = new FileReader();
   reader.onload = function() {
     var dataURL = reader.result;
     var output = document.getElementById('output');
-
+    
+    //show user uploaded image
     output.src = dataURL;
   };
   try{
@@ -70,6 +71,7 @@ var openFile = function(file) {
 };
 
 function updateTables(){
+  //makes sure tables are updated
   document.getElementById("mattext").innerHTML = graph.mat.html();
   document.getElementById("adjtext").innerHTML = graph.adjList.html();
 }
