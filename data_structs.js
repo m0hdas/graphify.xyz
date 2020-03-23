@@ -5,8 +5,11 @@ class Matrix {
   }
 
   addNode() {
+    //add column
     this.mat = this.mat.map(r => r.concat([Infinity]));
+    //add row
     this.mat.push(Array(this.mat.length + 1).fill(Infinity));
+    
     this.mat[this.mat.length - 1][this.mat.length - 1] = 0;
   }
   
@@ -47,7 +50,7 @@ class Matrix {
         if(j == Infinity){
           html += "&infin;&nbsp;";
         }else{
-          html += j + "&nbsp;" 
+          html += j + "&nbsp;" //non breakable space
         }
       }
       html += "<br>" //end line
@@ -71,6 +74,8 @@ class AdjList {
   
   removeNode(node){
     this.adj.splice(node.idx, 1);
+    
+    //filters all the edges with that node
     this.adj = this.adj.map(l => l.filter(x => x[0] != node));
   }
 
@@ -81,7 +86,8 @@ class AdjList {
   }
   
   removeEdge(edge){
-
+     
+    //linear search
     for(let i = 0; i < this.adj[edge.from.idx].length; i++){
       if(this.adj[edge.from.idx][i][0].idx == edge.to.idx){
         this.adj[edge.from.idx].splice(i, 1)
