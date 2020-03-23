@@ -13,6 +13,7 @@ class Edge {
   }
 
   draw(showWeights, isDirectional) {
+    //draw edge line
     push();
     stroke(this.algoCol);
     strokeWeight(6);
@@ -20,13 +21,16 @@ class Edge {
     pop();
     
     if(isDirectional){
+      //draw the arrow
       push();
       fill(255, 0, 0);
       stroke(7);
       strokeWeight(7);
+      //vector 
       let vx = this.to.x - this.from.x;
       let vy = this.to.y - this.from.y;
       let dist = sqrt(vx ** 2 + vy ** 2);
+      //factor of the vector needed
       let mult = 1 - (37 / dist);
       translate(this.from.x + vx * mult, this.from.y + vy * mult); //go to the end;
       rotate(atan2(vy, vx));
@@ -39,6 +43,7 @@ class Edge {
       push();
       fill(0);
       textSize(30);
+      //translate and rotate
       let midpointX = (this.from.x + this.to.x) / 2;
       let midpointY = (this.from.y + this.to.y) / 2;
       translate(midpointX, midpointY);
@@ -113,13 +118,16 @@ class Edge {
     let y = (mY * cos(theta)) - (mX * sin(theta));
     
     if((x - 25) ** 2 + (y + 18) ** 2 < 36 && this.w < 99){
+      //within plus button
       this.w += 1;
     }else if((x + 25) ** 2 + (y + 18) ** 2 < 36 && this.w > 0){
+      //within minus button
       this.w -= 1
     }
   }
   
   resetAlgoState(){
+    //for exiting Dijkstra's
     this.algoCol = 0;
     this.algoText = "";
     this.algoTCol = 0;
